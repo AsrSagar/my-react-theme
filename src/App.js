@@ -6,6 +6,7 @@ import SubscribePopup from './components/SubscribePopup/SubscribePopup';
 import HomePage from './Pages/HomePage';
 import ContactPage from './Pages/ContactPage';
 import BlogGridPage from './Pages/BlogPage/BlogPageContent';
+import ShopPage from './Pages/ShopPage/ShopPage';
 import CategoryProducts from './Pages/ProductCategoryPage/ProductCategoryPage';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/wp-react-theme/" element={<HomePage />} />
           <Route path="/wp-react-theme/contact/" element={<ContactPage />} />
           <Route path="/wp-react-theme/blog/" element={<BlogGridPage />} />
+          <Route path="/wp-react-theme/shop/" element={<ShopPage />} />
           <Route path="/wp-react-theme/product-category/*" element={<CategoryProducts />} />
         </Routes>
         <SubscribePopup />

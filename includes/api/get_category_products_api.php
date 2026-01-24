@@ -1,53 +1,56 @@
-<?php
+<?php 
 
-$slug = sanitize_text_field($_GET['slug'] ?? '');
-if (!$slug) {
-    wp_send_json_error("Category slug missing");
-}
-
-// Get category by slug (use dynamic $slug!)
-$category = get_terms([
-    'taxonomy' => 'product_cat',
-    'slug' => $slug,
-    'hide_empty' => true,
-]);
-
-if (empty($category)) {
-    wp_send_json_error("Category not found");
-}
-
-$cat_id = $category[0]->term_id;
-
-// Fetch products in this category
-$args = [
-    'post_type' => 'product',
-    'posts_per_page' => 12,
-    'tax_query' => [
-        [
-            'taxonomy' => 'product_cat',
-            'field'    => 'term_id',
-            'terms'    => $cat_id,
+add_action('rest_api_init', function () {
+    register_rest_route('reactpress/v1', '/products', [
+        'methods'  => 'GET',
+        'callback' => 'reactpress_get_products_by_category',
+        'permission_callback' => '__return_true',
+        'args' => [
+            'category' => [
+                'required' => false,
+                'type' => 'string',
+                'description' => 'Category slug to filter products',
+            ],
         ],
-    ],
-];
+    ]);
+});
 
-$products = get_posts($args);
+function reactpress_get_products_by_category($request) {
+    $category_slug = sanitize_text_field($request->get_param('category'));
 
-$data = array_map(function($p) {
-    $img = get_the_post_thumbnail_url($p->ID, 'full');
-    $price = get_post_meta($p->ID, '_price', true);
-    $regular_price = get_post_meta($p->ID, '_regular_price', true);
-    $sale_price = get_post_meta($p->ID, '_sale_price', true);
+    $tax_query = [];
 
-    return [
-        'id' => $p->ID,
-        'name' => $p->post_title,
-        'link' => get_permalink($p->ID),
-        'image' => $img,
-        'price' => $price,
-        'regular_price' => $regular_price,
-        'sale_price' => $sale_price,
+    if ($category_slug) {
+        $tax_query[] = [
+            'taxonomy' => 'product_cat',
+            'field'    => 'slug',
+            'terms'    => $category_slug,
+        ];
+    }
+
+    $args = [
+        'post_type'      => 'product',
+        'posts_per_page' => 8,
+        'post_status'    => 'publish',
+        'tax_query'      => $tax_query,
     ];
-}, $products);
 
-wp_send_json($data);
+    $query = new WP_Query($args);
+    $products = [];
+
+    while ($query->have_posts()) {
+        $query->the_post();
+        global $product;
+
+        $products[] = [
+            'id'    => get_the_ID(),
+            'name'  => get_the_title(),
+            'price' => $product->get_price_html(),
+            'image' => wp_get_attachment_image_url($product->get_image_id(), 'medium'),
+            'link'  => get_permalink(),
+        ];
+    }
+
+    wp_reset_postdata();
+    return $products;
+}
