@@ -12,6 +12,7 @@ define('THEME_URI', get_template_directory_uri() );
 include(THEME_PATH.'/includes/front/enqueue.php');
 include(THEME_PATH.'/includes/backend/admin_functions.php');
 include(THEME_PATH.'/includes/api/nav_menu_api.php');
+// include(THEME_PATH.'/includes/api/get_category_products_api.php');
 // include(THEME_PATH.'/includes/backend/custom_post_types.php');
 // include(THEME_PATH.'/includes/backend/navwalker.php');
 

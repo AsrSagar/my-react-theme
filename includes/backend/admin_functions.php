@@ -59,3 +59,30 @@ function custom_default_function() {
 }
 add_action( 'after_setup_theme', 'custom_default_function' );
 
+
+
+// Add custom image upload field to menu items in admin
+add_action('wp_nav_menu_item_custom_fields', function ($item_id, $item, $depth, $args) {
+    $menu_image = get_post_meta($item_id, '_menu_image', true);
+    ?>
+    <p class="description description-wide">
+        <label for="edit-menu-item-image-<?php echo $item_id; ?>">
+            Mega Menu Image URL<br>
+            <input type="text" id="edit-menu-item-image-<?php echo $item_id; ?>" 
+                   class="widefat code edit-menu-item-image" 
+                   name="menu-item-image[<?php echo $item_id; ?>]" 
+                   value="<?php echo esc_attr($menu_image); ?>" />
+        </label>
+        <button class="button upload-menu-image-button" data-target="#edit-menu-item-image-<?php echo $item_id; ?>" type="button">Upload Image</button>
+    </p>
+    <?php
+}, 10, 4);
+
+
+add_action('wp_update_nav_menu_item', function ($menu_id, $menu_item_db_id, $args) {
+    if (isset($_POST['menu-item-image'][$menu_item_db_id])) {
+        $sanitized = sanitize_text_field($_POST['menu-item-image'][$menu_item_db_id]);
+        update_post_meta($menu_item_db_id, '_menu_image', $sanitized);
+    }
+}, 10, 3);
+

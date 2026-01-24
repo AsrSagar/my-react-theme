@@ -11,12 +11,12 @@ export default function Posts() {
 
   return (
     <div>
-      <h2>Latest Posts dfdsf edd fsdf</h2>
+      {/* <h2>Latest Posts</h2>
       {posts.map(post => (
         <article key={post.id}>
           <h3 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
         </article>
-      ))}
+      ))} */}
     </div>
   );
 }
