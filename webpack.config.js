@@ -28,6 +28,14 @@ module.exports = {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
+      {
+        test: /\.scss$/i,
+        use: [
+          MiniCssExtractPlugin.loader, // Extract CSS into files
+          'css-loader',                // Translates CSS into CommonJS
+          'sass-loader',               // Compiles SCSS to CSS
+        ],
+      },
     ],
   },
 
