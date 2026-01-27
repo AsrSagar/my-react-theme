@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./ProductCategoryPage.scss";
 
 const CategoryProducts = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Extract full category path
   const categoryPath = location.pathname
@@ -15,6 +16,17 @@ const CategoryProducts = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const getSlugFromPermalink = (permalink) => {
+    if (!permalink) return "";
+    const parts = permalink.split("/").filter(Boolean);
+    return parts[parts.length - 1];
+  }
+
+  const goToProduct = (productLink) => {
+    const slug = getSlugFromPermalink(productLink);
+    navigate(`/wp-react-theme/product/${slug}`);
+  };
 
   useEffect(() => {
     if (!slug) return;
@@ -100,15 +112,19 @@ const CategoryProducts = () => {
                             >
                               <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                                 <div className="product-thumb zoom-effect">
-                                  <a
-                                    className="thumbnail"
-                                    href={product.link}
-                                  >
-                                    <img
-                                      src={product.image}
-                                      alt={product.name}
-                                    />
-                                  </a>
+                                    <a
+                                      href="#"
+                                      className="thumbnail"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        goToProduct(product.link);
+                                      }}
+                                    >
+                                      <img
+                                        src={product.image}
+                                        alt={product.name}
+                                      />
+                                    </a>
 
                                     <div className="pruduct-buttons">
                                         <a href="#" className="product-button tooltip">
@@ -134,7 +150,13 @@ const CategoryProducts = () => {
 
                                 <div className="product-item-details">
                                   <h3 className="product-title">
-                                    <a href={product.link}>
+                                    <a
+                                      href="#"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        goToProduct(product.link);
+                                      }}
+                                    >
                                       {product.name}
                                     </a>
                                   </h3>

@@ -8,6 +8,7 @@ import ContactPage from './Pages/ContactPage';
 import BlogGridPage from './Pages/BlogPage/BlogPageContent';
 import ShopPage from './Pages/ShopPage/ShopPage';
 import CategoryProducts from './Pages/ProductCategoryPage/ProductCategoryPage';
+import ProductDetailsPage from './Pages/ProductDetailsPage/ProductDetailsPage';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/wp-react-theme/blog/" element={<BlogGridPage />} />
           <Route path="/wp-react-theme/shop/" element={<ShopPage />} />
           <Route path="/wp-react-theme/product-category/*" element={<CategoryProducts />} />
+          <Route path="/wp-react-theme/product/:slug" element={<ProductDetailsPage />} />
         </Routes>
         <SubscribePopup />
         <FooterSection />

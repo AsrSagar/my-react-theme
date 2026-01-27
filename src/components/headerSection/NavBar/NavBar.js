@@ -26,7 +26,7 @@ const NavBar = () => {
               item.children?.length ? "menu-item-has-children" : ""
             }`}
           >
-            <a href={item.url}>{item.title}</a>
+            <Link to={item.url}>{item.title}</Link>
             {renderSubMenu(item.children)}
           </li>
         ))}
@@ -73,36 +73,36 @@ const NavBar = () => {
             <div class="site-branding pull-left">
                 <div id="site-identity">
                     <h1 class="site-title">
-                        <a href="/wp-react-theme/"  rel="home">
+                        <Link to="/wp-react-theme/"  rel="home">
                             <img
                                 src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/logo.png"
                                 alt="logo"
                                 className="site-logo"
                             />
                             Byapar
-                        </a>
+                        </Link>
                     </h1>
                 </div>
             </div>
-            <a
-            href="/contact"
+            <Link
+            to="/contact"
             className="custom-button custom-secondary-button pull-right quick-link-button button-small"
             >
             Quick Contact
-            </a>
+            </Link>
 
             <div id="header-right" class="pull-right">
                 <div class="hearder-min-cart">
                     <ul>
                         <li class="cart-button mini-cart-wrap">
-                            <a href="#"><i class=" icon-basket"></i><span>2</span>	</a>
+                            <Link to="#"><i class=" icon-basket"></i><span>2</span>	</Link>
                             <ul class="cart-list">
                             <li>
                                 <div class="cart-img">
-                                    <a href="#l"><img alt="product" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-1.jpg"/></a>
+                                    <Link to="#l"><img alt="product" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-1.jpg"/></Link>
                                 </div>
                                 <div class="cart-info">
-                                    <h4><a href="product-details.html">simple product</a></h4>
+                                    <h4><Link to="product-details.html">simple product</Link></h4>
                                     <span class="cart-qty">Qty: 1</span>
                                     <span>$60.00</span>
                                 </div>
@@ -112,10 +112,10 @@ const NavBar = () => {
                             </li>
                             <li>
                                 <div class="cart-img">
-                                    <a href="product-details.html"><img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-2.jpg" alt="Product"/></a>
+                                    <Link to="product-details.html"><img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-2.jpg" alt="Product"/></Link>
                                 </div>
                                 <div class="cart-info">
-                                    <h4><a href="product-details.html">virtual product</a></h4>
+                                    <h4><Link to="product-details.html">virtual product</Link></h4>
                                     <span class="cart-qty">Qty: 2</span>
                                     <span>$100.00</span>
                                 </div>
@@ -129,14 +129,14 @@ const NavBar = () => {
                             </li>
                             <li>
                                 <div class="mini-cart-button">
-                                    <a class="custom-button button-small pull-left" href="#">View Cart</a>
-                                    <a class="custom-button custom-secondary-button button-small pull-right" href="#">checkout</a>
+                                    <Link class="custom-button button-small pull-left" to="#">View Cart</Link>
+                                    <Link class="custom-button custom-secondary-button button-small pull-right" to="#">checkout</Link>
                                 </div>
                             </li>
                         </ul>
                         </li>
                         <li class="cart-button">
-                            <a href="wishlist.html"  title="wishlist"><i class=" icon-heart"></i><span>0</span>	</a>
+                            <Link to="wishlist.html" title="wishlist"><i class=" icon-heart"></i><span>0</span>	</Link>
                         </li>
                     </ul>
                 </div>
