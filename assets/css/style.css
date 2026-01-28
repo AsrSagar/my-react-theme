@@ -2298,6 +2298,7 @@ span#selected-category {
     font-size: 15px;
     font-weight: 700;
     text-transform: uppercase;
+	margin-right: 5px;
 }
 
 .mini-cart-wrap ul.cart-list li:last-child {
