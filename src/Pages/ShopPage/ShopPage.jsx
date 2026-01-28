@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ShopPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [cart, setCart] = useState([]); // Local cart state
   const navigate = useNavigate();
 
   // Extract slug safely from WooCommerce permalink
@@ -17,31 +19,66 @@ const ShopPage = () => {
   const goToProduct = (permalink) => {
     const slug = getSlugFromPermalink(permalink);
     if (!slug) return;
-    navigate(`/product/${slug}`);
+    navigate(`/wp-react-theme/product/${slug}`);
   };
 
+  // Fetch products from WooCommerce
   useEffect(() => {
     fetch(
       "http://localhost/wp-react-theme/wp-json/wc/store/v1/products?per_page=12"
     )
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Failed to fetch products");
-      }
-      return res.json();
-    })
-    .then((data) => {
-      setProducts(Array.isArray(data) ? data : []);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error("Product fetch error:", err);
-      setError("Failed to load products.");
-      setLoading(false);
-    });
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch products");
+        return res.json();
+      })
+      .then((data) => {
+        setProducts(Array.isArray(data) ? data : []);
+        console.log("Fetched products:", data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Product fetch error:", err);
+        setError("Failed to load products.");
+        setLoading(false);
+      });
   }, []);
 
-  console.log(products);
+  // Add product to cart
+  const handleAddToCart = (product) => {
+    setCart((prev) => {
+      const exist = prev.find((item) => item.id === product.id);
+      if (exist) {
+        // Increase quantity if already in cart
+        const updatedCart = prev.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+        console.log("Cart updated:", updatedCart);
+        return updatedCart;
+      } else {
+        const newCart = [
+          ...prev,
+          {
+            id: product.id,
+            name: product.name,
+            price: parseFloat(product.prices?.price || 0),
+            image: product.images[0]?.src,
+            quantity: 1,
+          },
+        ];
+        console.log("Cart updated:", newCart);
+        return newCart;
+      }
+    });
+  };
+
+  
+
+  const isInCart = (productId) => {
+    return cart.some((item) => item.id === productId);
+  };
+
 
   return (
     <>
@@ -114,9 +151,18 @@ const ShopPage = () => {
                                 />
                               </a>
                               <div className="pruduct-buttons">
-                                <a href="#" className="product-button tooltip"><i className="fas fa-cart-plus"></i><span className="tooltiptext tooltip-right">Add To Cart</span></a>
-                                <a href="#" className="product-button tooltip"><i className="far fa-heart"></i><span className="tooltiptext tooltip-right">Wishlist</span></a>
-                                <a href="#" className="product-button tooltip"><i className="fa fa-retweet"></i><span className="tooltiptext tooltip-right">Compair</span></a>
+                                <button
+                                  className="product-button tooltip"
+                                  onClick={() => handleAddToCart(product)}
+                                  disabled={isInCart(product.id)}
+                                >
+                                  <i className="fas fa-cart-plus"></i>
+                                  <span className="tooltiptext tooltip-right">
+                                    {isInCart(product.id) ? "Added" : "Add To Cart"}
+                                  </span>
+                                </button>
+                                <button href="#" className="product-button tooltip"><i className="far fa-heart"></i><span className="tooltiptext tooltip-right">Wishlist</span></button>
+                                <button href="#" className="product-button tooltip"><i className="fa fa-retweet"></i><span className="tooltiptext tooltip-right">Compair</span></button>
                               </div>
                               <div className="quick-view">
                                 <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link"><i className="far fa-eye"></i>Quick View</a>
@@ -124,7 +170,14 @@ const ShopPage = () => {
                               <span className="ribbon-rotated onsale">-16%</span>
                             </div>
                             <div className="product-item-details">
-                              <h3 className="product-title"><a href={product.permalink} onClick={(e) => { e.preventDefault(); goToProduct(product.permalink); }} title="title">{product.name}</a></h3>
+                              <h3 className="product-title">
+                                <a 
+                                  href={product.permalink} 
+                                  onClick={(e) => { e.preventDefault(); 
+                                  goToProduct(product.permalink); }} 
+                                  title="title">{product.name}
+                                </a>
+                              </h3>
                               <div className="product-ratings">
                                 <span className="star active"></span>
                                 <span className="star active"></span>

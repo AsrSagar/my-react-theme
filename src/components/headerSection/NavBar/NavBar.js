@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import HeaderMiniCart from "./HeaderMiniCart";
 
 const NavBar = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -90,73 +91,23 @@ const NavBar = () => {
             >
             Quick Contact
             </Link>
-
-            <div id="header-right" class="pull-right">
-                <div class="hearder-min-cart">
-                    <ul>
-                        <li class="cart-button mini-cart-wrap">
-                            <Link to="#"><i class=" icon-basket"></i><span>2</span>	</Link>
-                            <ul class="cart-list">
-                            <li>
-                                <div class="cart-img">
-                                    <Link to="#l"><img alt="product" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-1.jpg"/></Link>
-                                </div>
-                                <div class="cart-info">
-                                    <h4><Link to="product-details.html">simple product</Link></h4>
-                                    <span class="cart-qty">Qty: 1</span>
-                                    <span>$60.00</span>
-                                </div>
-                                <div class="del-icon">
-                                    <i class="fa fa-times"></i>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="cart-img">
-                                    <Link to="product-details.html"><img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-2.jpg" alt="Product"/></Link>
-                                </div>
-                                <div class="cart-info">
-                                    <h4><Link to="product-details.html">virtual product</Link></h4>
-                                    <span class="cart-qty">Qty: 2</span>
-                                    <span>$100.00</span>
-                                </div>
-                                <div class="del-icon">
-                                    <i class="fa fa-times"></i>
-                                </div>
-                            </li>
-                            <li class="mini-cart-price">
-                                <span class="subtotal">subtotal : </span>
-                                <span class="subtotal-price ml-auto">$110.00</span>
-                            </li>
-                            <li>
-                                <div class="mini-cart-button">
-                                    <Link class="custom-button button-small pull-left" to="#">View Cart</Link>
-                                    <Link class="custom-button custom-secondary-button button-small pull-right" to="#">checkout</Link>
-                                </div>
-                            </li>
-                        </ul>
-                        </li>
-                        <li class="cart-button">
-                            <Link to="wishlist.html" title="wishlist"><i class=" icon-heart"></i><span>0</span>	</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <HeaderMiniCart />
             <nav className="main-navigation pull-right">
-            <ul>
-                {menuItems.map((item) => (
-                <li
-                    key={item.id}
-                    className={`menu-item menu-item-${item.id} ${item.classes?.join(" ")} ${
-                    item.children?.length ? "menu-item-has-children" : ""
-                    }`}
-                >
-                    <Link to={item.url}>{item.title}</Link>
-                    {item.mega && item.children
-                    ? renderMegaMenu(item.children)
-                    : renderSubMenu(item.children)}
-                </li>
-                ))}
-            </ul>
+              <ul>
+                  {menuItems.map((item) => (
+                  <li
+                      key={item.id}
+                      className={`menu-item menu-item-${item.id} ${item.classes?.join(" ")} ${
+                      item.children?.length ? "menu-item-has-children" : ""
+                      }`}
+                  >
+                      <Link to={item.url}>{item.title}</Link>
+                      {item.mega && item.children
+                      ? renderMegaMenu(item.children)
+                      : renderSubMenu(item.children)}
+                  </li>
+                  ))}
+              </ul>
             </nav>
         </div>
     </header>

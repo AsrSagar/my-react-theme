@@ -1599,20 +1599,6 @@ h3.megamenu-title {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*--------------------------------------------------------------
 11.1. Top Header
 --------------------------------------------------------------*/
@@ -6411,7 +6397,7 @@ section.error-404 .search-form input.search-field {
     overflow: hidden;
 }
 
-.section-products .pruduct-buttons a {
+.section-products .pruduct-buttons button {
     background: #fff;
     padding: 8px 9px;
     line-height: 1.5;
@@ -6424,6 +6410,9 @@ section.error-404 .search-form input.search-field {
     box-shadow: 0 0 40px #2422222b;
 }
 
+.pruduct-buttons button:hover, .pruduct-buttons button:focus, .pruduct-buttons button:active {
+    color: #CE1648;
+}
 .section-products .product-thumb a.thumbnail {
     display: block;
     position: relative;

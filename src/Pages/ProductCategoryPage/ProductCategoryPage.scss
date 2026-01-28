@@ -1,4 +1,6 @@
-/* Product Category Grid */
+/* ===============================
+   PRODUCT CATEGORY GRID
+================================ */
 
 .products-grid-row {
   display: flex;
@@ -6,12 +8,16 @@
   margin: -10px;
 }
 
-/* GRID ITEM */
+/* ===============================
+   GRID ITEM
+================================ */
+
 .product-item {
   padding: 10px;
   box-sizing: border-box;
   flex: 0 0 33.3333%;
   max-width: 33.3333%;
+  display: flex; /* 🔥 REQUIRED for equal height */
 
   @media (max-width: 991px) {
     flex: 0 0 50%;
@@ -22,85 +28,155 @@
     flex: 0 0 100%;
     max-width: 100%;
   }
+}
 
-  .product-item-wrapper {
-    border: 1px solid #eee;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
-    overflow: hidden; // IMPORTANT
-    height: 100%; // keeps equal column height
+/* ===============================
+   PRODUCT CARD
+================================ */
+
+.product-item-wrapper {
+  border: 1px solid #eee;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+  height: 100%;
+
+  display: flex;              /* 🔥 REQUIRED */
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+/* ===============================
+   PRODUCT IMAGE
+================================ */
+
+.product-thumb {
+  position: relative;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+/* ===============================
+   SALE RIBBON
+================================ */
+
+.ribbon-rotated.onsale {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #e63946;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* ===============================
+   PRODUCT ACTION BUTTONS
+================================ */
+
+.pruduct-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+
+  .product-button {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 6px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 
     &:hover {
-      transform: translateY(-5px);
-    }
-
-    .product-thumb {
-      position: relative;
-
-      img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      .pruduct-buttons {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-
-        .product-button {
-          background: #fff;
-          border: 1px solid #ddd;
-          padding: 5px;
-          border-radius: 3px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-
-          &:hover {
-            background: #f0f0f0;
-          }
-        }
-      }
-    }
-
-    .product-item-details {
-      margin-top: 10px;
-
-      .product-title {
-        font-size: 16px;
-        margin-bottom: 5px;
-        cursor: pointer;
-
-        a {
-          text-decoration: none;
-          color: #333;
-
-          &:hover {
-            color: #0073e6;
-          }
-        }
-      }
-
-      .product-price-container {
-        font-size: 14px;
-        color: #555;
-
-        del.dis-price {
-          margin-right: 5px;
-          color: #999;
-        }
-      }
+      background: #f0f0f0;
     }
   }
 }
 
-/* LOADING / EMPTY MESSAGE */
+/* ===============================
+   QUICK VIEW
+================================ */
+
+.quick-view {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+
+  a {
+    background: #000;
+    color: #fff;
+    padding: 6px 10px;
+    font-size: 12px;
+    text-decoration: none;
+  }
+}
+
+/* ===============================
+   PRODUCT DETAILS
+================================ */
+
+.product-item-details {
+  margin-top: auto; /* 🔥 PUSHES DETAILS TO BOTTOM */
+  padding-top: 10px;
+}
+
+.product-title {
+  font-size: 16px;
+  margin-bottom: 6px;
+  min-height: 44px; /* 🔥 FIXES TITLE HEIGHT */
+
+  a {
+    text-decoration: none;
+    color: #333;
+
+    &:hover {
+      color: #0073e6;
+    }
+  }
+}
+
+/* ===============================
+   PRICE
+================================ */
+
+.product-price-container {
+  font-size: 14px;
+  color: #555;
+
+  del {
+    margin-right: 5px;
+    color: #999;
+  }
+
+  ins {
+    text-decoration: none;
+    font-weight: 600;
+    color: #000;
+  }
+}
+
+/* ===============================
+   LOADING / EMPTY MESSAGE
+================================ */
+
 .grid-message {
   width: 100%;
   text-align: center;
