@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useCart } from "../../context/CartContext";
 
 const ShopPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [cart, setCart] = useState([]); // Local cart state
-  const navigate = useNavigate();
-  const { addToCart, isInCart } = useCart();
   const [loadingId, setLoadingId] = useState(null);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const perPage = 12;
+
+  const { addToCart, isInCart } = useCart();
+  const navigate = useNavigate();
 
   // Extract slug safely from WooCommerce permalink
   const getSlugFromPermalink = (permalink) => {
@@ -18,7 +21,6 @@ const ShopPage = () => {
     return permalink.split("/").filter(Boolean).pop();
   };
 
-  // Navigate to product details page
   const goToProduct = (permalink) => {
     const slug = getSlugFromPermalink(permalink);
     if (!slug) return;
@@ -28,7 +30,6 @@ const ShopPage = () => {
   const handleAddToCart = (product) => {
     if (!isInCart(product.id)) {
       setLoadingId(product.id);
-      // simulate async add
       setTimeout(() => {
         addToCart(product);
         setLoadingId(null);
@@ -38,11 +39,14 @@ const ShopPage = () => {
 
   // Fetch products from WooCommerce
   useEffect(() => {
+    setLoading(true);
     fetch(
-      "http://localhost/wp-react-theme/wp-json/wc/store/v1/products?per_page=12"
+      `http://localhost/wp-react-theme/wp-json/wc/store/v1/products?page=${currentPage}&per_page=${perPage}`
     )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch products");
+        const total = res.headers.get("X-WP-TotalPages");
+        if (total) setTotalPages(Number(total));
         return res.json();
       })
       .then((data) => {
@@ -54,9 +58,35 @@ const ShopPage = () => {
         setError("Failed to load products.");
         setLoading(false);
       });
-  }, []);
+  }, [currentPage]);
 
-  // Add product to cart
+  // Generate pagination numbers with "..." logic
+  const getPagination = (current, total) => {
+    const delta = 2;
+    const range = [];
+    const rangeWithDots = [];
+    let l;
+
+    for (let i = 1; i <= total; i++) {
+      if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+        range.push(i);
+      }
+    }
+
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+
+    return rangeWithDots;
+  };
 
   return (
     <>
@@ -65,31 +95,26 @@ const ShopPage = () => {
         <div className="custom-header-content">
           <div className="container">
             <h1 className="page-title">Shop</h1>
-
             <div id="breadcrumb">
-              <div
-                aria-label="Breadcrumbs"
-                className="breadcrumbs breadcrumb-trail"
-              >
+              <div aria-label="Breadcrumbs" className="breadcrumbs breadcrumb-trail">
                 <ul className="trail-items">
-                  <li className="trail-item trail-begin">
-                    <span>Home</span>
-                  </li>
-                  <li className="trail-item trail-end">
-                    <span>Shop</span>
-                  </li>
+                  <li className="trail-item trail-begin"><span>Home</span></li>
+                  <li className="trail-item trail-end"><span>Shop</span></li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* ===== CONTENT ===== */}
       <div id="content" className="site-content default-full-width">
         <div className="container">
           <div className="inner-wrapper">
             <div id="primary" className="content-area">
               <main id="main" className="site-main">
                 <div className="section-products">
+                  {/* ===== Filter & Pagination Top ===== */}
                   <div className="pruduct-filter-row clear-fix">
                     <div className="filter-row-box product-view pull-left">
                       <a href="#l" className="cat-grid active" title="Category grid"><i className="fa fa-th"></i></a>
@@ -109,94 +134,161 @@ const ShopPage = () => {
                     </div>
                     <nav className="filter-row-box navigation pagination pull-right">
                       <div className="nav-links">
-                        <span className="page-numbers current">1</span>
-                        <a className="page-numbers" href="#">2</a>
-                        <a className="page-numbers" href="#">3</a>
-                        <a className="next page-numbers" href="#">Next »</a>
+                        {/* Prev */}
+                        <button
+                          className="prev page-numbers"
+                          disabled={currentPage === 1}
+                          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        >
+                          « Prev
+                        </button>
+
+                        {/* Page numbers */}
+                        {getPagination(currentPage, totalPages).map((page, idx) =>
+                          page === "..." ? (
+                            <span key={idx} className="dots">…</span>
+                          ) : (
+                            <button
+                              key={idx}
+                              className={`page-numbers ${page === currentPage ? "current" : ""}`}
+                              onClick={() => setCurrentPage(page)}
+                            >
+                              {page}
+                            </button>
+                          )
+                        )}
+
+                        {/* Next */}
+                        <button
+                          className="next page-numbers"
+                          disabled={currentPage === totalPages}
+                          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        >
+                          Next »
+                        </button>
                       </div>
                     </nav>
                   </div>
+
+                  {/* ===== Product Grid ===== */}
                   <div className="inner-wrapper">
                     <div className="products-inner-wrapper clear-fix">
-                      {products.map((product) => (
-                        <div className="product-item col-grid-3 top-space">
-                          <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
-                            <div className="product-thumb zoom-effect">
-                              <a className="thumbnail" href={product.permalink} onClick={(e) => { e.preventDefault(); goToProduct(product.permalink); }}>
-                                <img 
-                                  alt={product.name}
-                                  src={product.images[0]?.src} 
-                                />
-                              </a>
-                              <div className="pruduct-buttons">
-                                <button
-                                  className="product-button tooltip"
-                                  onClick={() => handleAddToCart(product)}
-                                  disabled={loadingId === product.id || isInCart(product.id)} // <-- add isInCart
-                                >
-                                  <i
-                                    className={
-                                      loadingId === product.id
-                                        ? "fas fa-spinner fa-spin"
-                                        : isInCart(product.id)
-                                        ? "fas fa-check"
-                                        : "fas fa-cart-plus"
-                                    }
-                                  ></i>
-                                  <span className="tooltiptext tooltip-right">
-                                    {loadingId === product.id
-                                      ? "Adding..."
-                                      : isInCart(product.id)
-                                      ? "Added"
-                                      : "Add To Cart"}
-                                  </span>
-                                </button>
-                                <button href="#" className="product-button tooltip"><i className="far fa-heart"></i><span className="tooltiptext tooltip-right">Wishlist</span></button>
-                                <button href="#" className="product-button tooltip"><i className="fa fa-retweet"></i><span className="tooltiptext tooltip-right">Compair</span></button>
-                              </div>
-                              <div className="quick-view">
-                                <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link"><i className="far fa-eye"></i>Quick View</a>
-                              </div>
-                              <span className="ribbon-rotated onsale">-16%</span>
-                            </div>
-                            <div className="product-item-details">
-                              <h3 className="product-title">
-                                <a 
-                                  href={product.permalink} 
-                                  onClick={(e) => { e.preventDefault(); 
-                                  goToProduct(product.permalink); }} 
-                                  title="title">{product.name}
-                                </a>
-                              </h3>
-                              <div className="product-ratings">
-                                <span className="star active"></span>
-                                <span className="star active"></span>
-                                <span className="star active"></span>
-                                <span className="star"></span>
-                                <span className="star"></span>
-                              </div>
-                              <div
-                                className="product-price-container"
-                                dangerouslySetInnerHTML={{
-                                  __html: product.price_html,
-                                }}
-                              />
+                      {loading ? (
+                        [...Array(perPage)].map((_, idx) => (
+                          <div key={idx} className="product-item col-grid-3 top-space">
+                            <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                              <div className="product-thumb zoom-effect skeleton"></div>
+                              <div className="product-item-details skeleton"></div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ))
+                      ) : products.length > 0 ? (
+                        products.map((product) => (
+                          <div key={product.id} className="product-item col-grid-3 top-space">
+                            <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                              <div className="product-thumb zoom-effect">
+                                <a
+                                  className="thumbnail"
+                                  href={product.permalink}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    goToProduct(product.permalink);
+                                  }}
+                                >
+                                  <img alt={product.name} src={product.images[0]?.src} />
+                                </a>
+                                <div className="pruduct-buttons">
+                                  <button
+                                    className="product-button tooltip"
+                                    onClick={() => handleAddToCart(product)}
+                                    disabled={loadingId === product.id || isInCart(product.id)}
+                                  >
+                                    <i
+                                      className={
+                                        loadingId === product.id
+                                          ? "fas fa-spinner fa-spin"
+                                          : isInCart(product.id)
+                                          ? "fas fa-check"
+                                          : "fas fa-cart-plus"
+                                      }
+                                    ></i>
+                                    <span className="tooltiptext tooltip-right">
+                                      {loadingId === product.id
+                                        ? "Adding..."
+                                        : isInCart(product.id)
+                                        ? "Added"
+                                        : "Add To Cart"}
+                                    </span>
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="product-item-details">
+                                <h3 className="product-title">
+                                  <a
+                                    href={product.permalink}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      goToProduct(product.permalink);
+                                    }}
+                                  >
+                                    {product.name}
+                                  </a>
+                                </h3>
+                                <div
+                                  className="product-price-container"
+                                  dangerouslySetInnerHTML={{ __html: product.price_html }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <p>No products found.</p>
+                      )}
                     </div>
                   </div>
+
+                  {/* ===== Pagination ===== */}
                   <div className="pruduct-filter-row clear-fix top-space">
                     <div className="filter-row-box pull-left">
-                      <span>Showing: 1-12 of 16</span>
+                      <span>
+                        Showing {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, totalPages * perPage)}
+                      </span>
                     </div>
                     <nav className="filter-row-box navigation pagination pull-right">
                       <div className="nav-links">
-                        <span className="page-numbers current">1</span>
-                        <a className="page-numbers" href="#">2</a>
-                        <a className="page-numbers" href="#">3</a>
-                        <a className="next page-numbers" href="#">Next »</a>
+                        {/* Prev */}
+                        <button
+                          className="prev page-numbers"
+                          disabled={currentPage === 1}
+                          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        >
+                          « Prev
+                        </button>
+
+                        {/* Page numbers */}
+                        {getPagination(currentPage, totalPages).map((page, idx) =>
+                          page === "..." ? (
+                            <span key={idx} className="dots">…</span>
+                          ) : (
+                            <button
+                              key={idx}
+                              className={`page-numbers ${page === currentPage ? "current" : ""}`}
+                              onClick={() => setCurrentPage(page)}
+                            >
+                              {page}
+                            </button>
+                          )
+                        )}
+
+                        {/* Next */}
+                        <button
+                          className="next page-numbers"
+                          disabled={currentPage === totalPages}
+                          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        >
+                          Next »
+                        </button>
                       </div>
                     </nav>
                   </div>
@@ -206,9 +298,6 @@ const ShopPage = () => {
           </div>
         </div>
       </div>
-
-      
-      
     </>
   );
 };
