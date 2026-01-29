@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 const NewProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // hook for client-side navigation
+  const navigate = useNavigate(); 
+  const { addToCart, isInCart } = useCart();
+  const [loadingId, setLoadingId] = useState(null);
 
   const getSlugFromPermalink = (permalink) => {
     if (!permalink) return "";
     const parts = permalink.split("/").filter(Boolean);
     return parts[parts.length - 1];
+  };
+
+  const handleAddToCart = (product) => {
+    if (!isInCart(product.id)) {
+      setLoadingId(product.id);
+      // simulate async add
+      setTimeout(() => {
+        addToCart(product);
+        setLoadingId(null);
+      }, 600);
+    }
   };
 
   useEffect(() => {
@@ -33,7 +47,7 @@ const NewProducts = () => {
       <div className="section-products">
         <div className="container">
           <div className="section-title-wrap">
-            <h2 className="section-title">Popular Product</h2>
+            <h2 className="section-title">New Product</h2>
           </div>
           <div className="inner-wrapper">
             <div className="products-inner-wrapper">
@@ -58,18 +72,36 @@ const NewProducts = () => {
                         <img src={product.images[0]?.src || "/placeholder.png"} alt={product.name} />
                       </div>
                       <div className="pruduct-buttons">
-                        <a href="#" className="product-button tooltip">
-                          <i className="fas fa-cart-plus"></i>
-                          <span className="tooltiptext tooltip-right">Add To Cart</span>
-                        </a>
-                        <a href="#" className="product-button tooltip">
+                        <button
+                          className="product-button tooltip"
+                          onClick={() => handleAddToCart(product)}
+                          disabled={loadingId === product.id || isInCart(product.id)} 
+                        >
+                          <i
+                            className={
+                              loadingId === product.id
+                                ? "fas fa-spinner fa-spin"
+                                : isInCart(product.id)
+                                ? "fas fa-check"
+                                : "fas fa-cart-plus"
+                            }
+                          ></i>
+                          <span className="tooltiptext tooltip-right">
+                            {loadingId === product.id
+                              ? "Adding..."
+                              : isInCart(product.id)
+                              ? "Added"
+                              : "Add To Cart"}
+                          </span>
+                        </button>
+                        <button href="#" className="product-button tooltip">
                           <i className="far fa-heart"></i>
                           <span className="tooltiptext tooltip-right">Wishlist</span>
-                        </a>
-                        <a href="#" className="product-button tooltip">
+                        </button>
+                        <button href="#" className="product-button tooltip">
                           <i className="fa fa-retweet"></i>
                           <span className="tooltiptext tooltip-right">Compair</span>
-                        </a>
+                        </button>
                       </div>
                       <div className="quick-view">
                         <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">

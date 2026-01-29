@@ -127,18 +127,18 @@ const CategoryProducts = () => {
                                     </a>
 
                                     <div className="pruduct-buttons">
-                                        <a href="#" className="product-button tooltip">
+                                        <button href="#" className="product-button tooltip">
                                             <i className="fas fa-cart-plus"></i>
                                             <span className="tooltiptext tooltip-right">Add To Cart</span>
-                                        </a>
-                                        <a href="#" className="product-button tooltip">
+                                        </button>
+                                        <button href="#" className="product-button tooltip">
                                             <i className="far fa-heart"></i>
                                             <span className="tooltiptext tooltip-right">Wishlist</span>
-                                        </a>
-                                        <a href="#" className="product-button tooltip">
+                                        </button>
+                                        <button href="#" className="product-button tooltip">
                                             <i className="fa fa-retweet"></i>
                                             <span className="tooltiptext tooltip-right">Compair</span>
-                                        </a>
+                                        </button>
                                     </div>
                                     <div className="quick-view">
                                         <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">

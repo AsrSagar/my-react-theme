@@ -7,11 +7,6 @@ const HeaderMiniCart = () => {
   const miniCartRef = useRef(null);
   const [showMiniCart, setShowMiniCart] = useState(false);
 
-  {cartItems.forEach(item => {
-    console.log(`Product: ${item.name}`);
-    console.log(`Price: ${item.prices.price}`);
-  })}
-
   // Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
