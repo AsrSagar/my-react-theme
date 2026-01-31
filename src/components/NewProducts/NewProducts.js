@@ -18,7 +18,6 @@ const NewProducts = () => {
   const handleAddToCart = (product) => {
     if (!isInCart(product.id)) {
       setLoadingId(product.id);
-      // simulate async add
       setTimeout(() => {
         addToCart(product);
         setLoadingId(null);

@@ -220,6 +220,14 @@ const ShopPage = () => {
                                         : "Add To Cart"}
                                     </span>
                                   </button>
+                                  <button href="#" className="product-button tooltip">
+                                    <i className="far fa-heart"></i>
+                                    <span className="tooltiptext tooltip-right">Wishlist</span>
+                                  </button>
+                                  <button href="#" className="product-button tooltip">
+                                    <i className="fa fa-retweet"></i>
+                                    <span className="tooltiptext tooltip-right">Compair</span>
+                                  </button>
                                 </div>
                               </div>
                               <div className="product-item-details">

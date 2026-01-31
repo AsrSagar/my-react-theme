@@ -2429,9 +2429,8 @@ span#selected-category {
 }
 
 img.site-logo {
-    margin-right: 10px;
-    margin-top: -10px;
     vertical-align: middle;
+    width: 230px;
 }
 
 #main-navigation .container {
