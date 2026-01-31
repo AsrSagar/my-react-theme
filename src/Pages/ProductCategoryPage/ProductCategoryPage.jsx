@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 import "./ProductCategoryPage.scss";
 
 const CategoryProducts = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { addToCart, isInCart } = useCart();
+  const [loadingId, setLoadingId] = useState(null);
 
   // Extract full category path
   const categoryPath = location.pathname
@@ -28,13 +31,23 @@ const CategoryProducts = () => {
     navigate(`/wp-react-theme/product/${slug}`);
   };
 
+  const handleAddToCart = (product) => {
+    if (!isInCart(product.id)) {
+      setLoadingId(product.id);
+      setTimeout(() => {
+        addToCart(product);
+        setLoadingId(null);
+      }, 600);
+    }
+  };
+
   useEffect(() => {
     if (!slug) return;
 
     setLoading(true);
 
     fetch(
-      `http://localhost/wp-react-theme/wp-json/reactpress/v1/products?category=${slug}`
+      `http://localhost/wp-react-theme/wp-json/wc/store/v1/products?category=${slug}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -120,16 +133,31 @@ const CategoryProducts = () => {
                                         goToProduct(product.link);
                                       }}
                                     >
-                                      <img
-                                        src={product.image}
-                                        alt={product.name}
-                                      />
+                                      <img alt={product.name} src={product.images[0]?.src} />
                                     </a>
 
                                     <div className="pruduct-buttons">
-                                        <button href="#" className="product-button tooltip">
-                                            <i className="fas fa-cart-plus"></i>
-                                            <span className="tooltiptext tooltip-right">Add To Cart</span>
+                                        <button
+                                          className="product-button tooltip"
+                                          onClick={() => handleAddToCart(product)}
+                                          disabled={loadingId === product.id || isInCart(product.id)}
+                                        >
+                                          <i
+                                            className={
+                                              loadingId === product.id
+                                                ? "fas fa-spinner fa-spin"
+                                                : isInCart(product.id)
+                                                ? "fas fa-check"
+                                                : "fas fa-cart-plus"
+                                            }
+                                          ></i>
+                                          <span className="tooltiptext tooltip-right">
+                                            {loadingId === product.id
+                                              ? "Adding..."
+                                              : isInCart(product.id)
+                                              ? "Added"
+                                              : "Add To Cart"}
+                                          </span>
                                         </button>
                                         <button href="#" className="product-button tooltip">
                                             <i className="far fa-heart"></i>
@@ -163,9 +191,7 @@ const CategoryProducts = () => {
 
                                   <div
                                     className="product-price-container"
-                                    dangerouslySetInnerHTML={{
-                                      __html: product.price,
-                                    }}
+                                    dangerouslySetInnerHTML={{ __html: product.price_html }}
                                   />
                                 </div>
                               </div>

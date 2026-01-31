@@ -1,6 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 const FeaturedProducts = () => {
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); 
+  const { addToCart, isInCart } = useCart();
+  const [loadingId, setLoadingId] = useState(null);
+  const perPage = 4;
+
+  const getSlugFromPermalink = (permalink) => {
+    if (!permalink) return "";
+    const parts = permalink.split("/").filter(Boolean);
+    return parts[parts.length - 1];
+  };
+
+  const handleAddToCart = (product) => {
+    if (!isInCart(product.id)) {
+      setLoadingId(product.id);
+      setTimeout(() => {
+        addToCart(product);
+        setLoadingId(null);
+      }, 600);
+    }
+  };
+  
+  useEffect(() => {
+    fetch(
+      `http://localhost/wp-react-theme/wp-json/wc/store/v1/products?featured=true&per_page=${perPage}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Product fetch error:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p>Loading products...</p>;
+  if (!products.length) return <p>No products found</p>;
+
   return (
     <aside className="section">
       <div className="section-products">
@@ -10,185 +54,88 @@ const FeaturedProducts = () => {
           </div>
           <div className="inner-wrapper">
             <div className="products-inner-wrapper">
-              <div className="product-item col-grid-3">
-                <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
-                  <div className="product-thumb zoom-effect">
-                    <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-1.jpg" alt="product" />
-                    </a>
-                    <div className="pruduct-buttons">
-                      <a href="#" className="product-button tooltip">
-                        <i className="fas fa-cart-plus"></i>
-                        <span className="tooltiptext tooltip-right">Add To Cart</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
-                        <i className="far fa-heart"></i>
-                        <span className="tooltiptext tooltip-right">Wishlist</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
-                        <i className="fa fa-retweet"></i>
-                        <span className="tooltiptext tooltip-right">Compair</span>
-                      </a>
-                    </div>
-                    <div className="quick-view">
-                      <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">
-                        <i className="far fa-eye"></i>Quick View
-                      </a>
-                    </div>
-                    <span className="ribbon-rotated onsale">-16%</span>
-                  </div>
-                  <div className="product-item-details">
-                    <h3 className="product-title">
-                      <a href="product.html" title="title">Cold Shoulder Wrap Top</a>
-                    </h3>
-                    <div className="product-ratings">
-                      <span className="star active"></span>
-                      <span className="star active"></span>
-                      <span className="star active"></span>
-                      <span className="star"></span>
-                      <span className="star"></span>
-                    </div>
-                    <div className="product-price-container">
-                      <del className="dis-price">$65.99</del>
-                      <span className="fix-price">$45.99</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {products.map((product) => {
+                const slug = product.slug || getSlugFromPermalink(product.permalink);
+                // Click handler for navigation
+                const goToProduct = (e) => {
+                  e.preventDefault(); // prevent default link behavior
+                  navigate(`/wp-react-theme/product/${slug}`); // client-side navigation
+                };
 
-              <div className="product-item col-grid-3">
-                <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
-                  <div className="product-thumb zoom-effect">
-                    <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-2.jpg" alt="product" />
-                    </a>
-                    <div className="pruduct-buttons">
-                      <a href="#" className="product-button tooltip">
-                        <i className="fas fa-cart-plus"></i>
-                        <span className="tooltiptext tooltip-right">Add To Cart</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
-                        <i className="far fa-heart"></i>
-                        <span className="tooltiptext tooltip-right">Wishlist</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
-                        <i className="fa fa-retweet"></i>
-                        <span className="tooltiptext tooltip-right">Compair</span>
-                      </a>
-                    </div>
-                    <div className="quick-view">
-                      <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">
-                        <i className="far fa-eye"></i>Quick View
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-item-details">
-                    <h3 className="product-title">
-                      <a href="product.html" title="title">Plaid Flounce Skirt</a>
-                    </h3>
-                    <div className="product-ratings">
-                      <span className="star active"></span>
-                      <span className="star active"></span>
-                      <span className="star active"></span>
-                      <span className="star"></span>
-                      <span className="star"></span>
-                    </div>
-                    <div className="product-price-container">
-                      <span className="fix-price">$600</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="product-item col-grid-3">
-                <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
-                  <div className="product-thumb zoom-effect">
-                    <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-3.jpg" alt="product" />
-                    </a>
-                    <div className="pruduct-buttons">
-                      <a href="#" className="product-button tooltip">
-                        <i className="fas fa-cart-plus"></i>
-                        <span className="tooltiptext tooltip-right">Add To Cart</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
-                        <i className="far fa-heart"></i>
-                        <span className="tooltiptext tooltip-right">Wishlist</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
-                        <i className="fa fa-retweet"></i>
-                        <span className="tooltiptext tooltip-right">Compair</span>
-                      </a>
-                    </div>
-                    <div className="quick-view">
-                      <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">
-                        <i className="far fa-eye"></i>Quick View
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-item-details">
-                    <h3 className="product-title">
-                      <a href="product.html" title="title">Pocket Flare Dress</a>
-                    </h3>
-                    <div className="product-ratings">
-                      <span className="star active"></span>
-                      <span className="star active"></span>
-                      <span className="star active"></span>
-                      <span className="star"></span>
-                      <span className="star"></span>
-                    </div>
-                    <div className="product-price-container">
-                      <del className="dis-price">$500</del>
-                      <span className="fix-price">$450</span>
+                return (
+                  <div className="product-item col-grid-3">
+                    <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
+                      <div className="product-thumb zoom-effect">
+                        <div
+                          className="product-thumb"
+                          onClick={goToProduct}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <img src={product.images[0]?.src || "/placeholder.png"} alt={product.name} />
+                        </div>
+                        <div className="pruduct-buttons">
+                          <button
+                            className="product-button tooltip"
+                            onClick={() => handleAddToCart(product)}
+                            disabled={loadingId === product.id || isInCart(product.id)} 
+                          >
+                            <i
+                              className={
+                                loadingId === product.id
+                                  ? "fas fa-spinner fa-spin"
+                                  : isInCart(product.id)
+                                  ? "fas fa-check"
+                                  : "fas fa-cart-plus"
+                              }
+                            ></i>
+                            <span className="tooltiptext tooltip-right">
+                              {loadingId === product.id
+                                ? "Adding..."
+                                : isInCart(product.id)
+                                ? "Added"
+                                : "Add To Cart"}
+                            </span>
+                          </button>
+                          <button href="#" className="product-button tooltip">
+                            <i className="far fa-heart"></i>
+                            <span className="tooltiptext tooltip-right">Wishlist</span>
+                          </button>
+                          <button href="#" className="product-button tooltip">
+                            <i className="fa fa-retweet"></i>
+                            <span className="tooltiptext tooltip-right">Compair</span>
+                          </button>
+                        </div>
+                        <div className="quick-view">
+                          <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">
+                            <i className="far fa-eye"></i>Quick View
+                          </a>
+                        </div>
+                        <span className="ribbon-rotated onsale">-16%</span>
+                      </div>
+                      <div className="product-item-details">
+                        <h3
+                          className="product-title"
+                          onClick={goToProduct}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {product.name}
+                        </h3>
+                        <div className="product-ratings">
+                          <span className="star active"></span>
+                          <span className="star active"></span>
+                          <span className="star active"></span>
+                          <span className="star"></span>
+                          <span className="star"></span>
+                        </div>
+                        <div
+                          className="product-price-container"
+                          dangerouslySetInnerHTML={{ __html: product.price_html }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="product-item col-grid-3">
-                <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
-                  <div className="product-thumb zoom-effect">
-                    <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-4.jpg" alt="product" />
-                    </a>
-                    <div className="pruduct-buttons">
-                      <a href="#" className="product-button tooltip">
-                        <i className="fas fa-cart-plus"></i>
-                        <span className="tooltiptext tooltip-right">Add To Cart</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
-                        <i className="far fa-heart"></i>
-                        <span className="tooltiptext tooltip-right">Wishlist</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
-                        <i className="fa fa-retweet"></i>
-                        <span className="tooltiptext tooltip-right">Compair</span>
-                      </a>
-                    </div>
-                    <div className="quick-view">
-                      <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">
-                        <i className="far fa-eye"></i>Quick View
-                      </a>
-                    </div>
-                    <span className="ribbon-rotated hot-item">NEW</span>
-                  </div>
-                  <div className="product-item-details">
-                    <h3 className="product-title">
-                      <a href="product.html" title="title">Asymmetric Ruffle Skirt</a>
-                    </h3>
-                    <div className="product-ratings">
-                      <span className="star active"></span>
-                      <span className="star active"></span>
-                      <span className="star active"></span>
-                      <span className="star"></span>
-                      <span className="star"></span>
-                    </div>
-                    <div className="product-price-container">
-                      <span className="fix-price">$500</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
 
             <div className="more-wrapper clear-fix">

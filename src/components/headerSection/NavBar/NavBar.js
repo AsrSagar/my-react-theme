@@ -76,11 +76,10 @@ const NavBar = () => {
                     <h1 class="site-title">
                         <Link to="/wp-react-theme/"  rel="home">
                             <img
-                                src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/logo.png"
+                                src="https://toffpark.com/wp-content/uploads/2021/08/Toffpark-Logo-Black-1.png"
                                 alt="logo"
                                 className="site-logo"
                             />
-                            Byapar
                         </Link>
                     </h1>
                 </div>
