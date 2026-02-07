@@ -67,7 +67,7 @@ const HeaderMiniCart = () => {
                     </li>
                     <li>
                       <div className="mini-cart-button">
-                        <Link className="custom-button button-small pull-left" to="/wp-react-theme/shop/">
+                        <Link className="custom-button button-small pull-left" to="/wp-react-theme/cart/">
                           View Cart
                         </Link>
                         <Link

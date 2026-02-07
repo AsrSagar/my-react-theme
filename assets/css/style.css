@@ -7247,6 +7247,8 @@ table.cart .product-info {
 table.cart .product-info h3 {
     font-size: 17px;
     margin-bottom: 5px;
+    width: 400px;
+    display: block;
 }
 
 table.cart .product-info ul {
@@ -7293,11 +7295,13 @@ table.cart .actions input[type="submit"]{
     max-width: 50%;
     margin-top: 30px;
 }
-td.product-remove a {
+td.product-remove button {
     text-align: center;
     display: block;
+    width: 20px;
+    margin: 0 auto;
+    padding: 0;
 }
-
 td.product-remove {
     padding-left: 0!important;
 }
