@@ -12,6 +12,7 @@ import BlogGridPage from "./Pages/BlogPage/BlogPageContent";
 import ShopPage from "./Pages/ShopPage/ShopPage";
 import CategoryProducts from "./Pages/ProductCategoryPage/ProductCategoryPage";
 import ProductDetailsPage from "./Pages/ProductDetailsPage/ProductDetailsPage";
+import CartPage from "./Pages/CartPage/CartPage";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/wp-react-theme/contact/" element={<ContactPage />} />
           <Route path="/wp-react-theme/blog/" element={<BlogGridPage />} />
           <Route path="/wp-react-theme/shop/" element={<ShopPage />} />
+          <Route path="/wp-react-theme/cart/" element={<CartPage />} />
           <Route
             path="/wp-react-theme/product-category/*"
             element={<CategoryProducts />}
