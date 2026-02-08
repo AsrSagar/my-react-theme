@@ -2575,6 +2575,9 @@ nav.main-navigation.navigation-border {
     font-size: 26px;
     margin: 0;
     float: left;
+    width: 50%;
+    text-align: left;
+    line-height: 32px;
 }
 
 /*--------------------------------------------------------------

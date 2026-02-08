@@ -27,10 +27,9 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // ✅ UPDATE QUANTITY
+  // Update quantity
   const updateQuantity = (id, qty) => {
     if (qty < 1) return;
-
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, qty } : item
@@ -43,23 +42,23 @@ export const CartProvider = ({ children }) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  // ✅ CLEAR CART (important)
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cartItems");
+  };
+
   const isInCart = (productId) =>
     cartItems.some((item) => item.id === productId);
 
-  // Format Woo price (cents → currency)
-  const formatPrice = (price) =>
-    (Number(price) / 100).toFixed(2);
-
-  // Cart count
   const cartCount = cartItems.reduce(
     (sum, item) => sum + item.qty,
     0
   );
 
-  // Cart total
   const cartTotal = cartItems.reduce((sum, item) => {
     const price = item.prices
-      ? Number(formatPrice(item.prices.price))
+      ? Number(item.prices.price) / 100
       : Number(item.price || 0);
 
     return sum + price * item.qty;
@@ -70,8 +69,9 @@ export const CartProvider = ({ children }) => {
       value={{
         cartItems,
         addToCart,
-        updateQuantity,   // ✅ expose
+        updateQuantity,
         removeFromCart,
+        clearCart, // ✅ expose
         cartCount,
         cartTotal,
         isInCart,

@@ -106,3 +106,61 @@ span.social-tilte.pull-left {
 }
 
 .products-grid-row{display:flex;flex-wrap:wrap;margin:-10px}.product-item{padding:10px;box-sizing:border-box;flex:0 0 33.3333%;max-width:33.3333%;display:flex}@media(max-width: 991px){.product-item{flex:0 0 50%;max-width:50%}}@media(max-width: 575px){.product-item{flex:0 0 100%;max-width:100%}}.product-item-wrapper{border:1px solid #eee;padding:10px;box-shadow:0 2px 5px rgba(0,0,0,.05);transition:transform .2s ease;overflow:hidden;height:100%;display:flex;flex-direction:column}.product-item-wrapper:hover{transform:translateY(-5px)}.product-thumb{position:relative}.product-thumb img{width:100%;height:auto;display:block}.ribbon-rotated.onsale{position:absolute;top:10px;left:10px;background:#e63946;color:#fff;padding:4px 8px;font-size:12px;font-weight:600;z-index:2}.pruduct-buttons{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;z-index:2}.pruduct-buttons .product-button{background:#fff;border:1px solid #ddd;padding:6px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.pruduct-buttons .product-button:hover{background:#f0f0f0}.quick-view{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:2}.quick-view a{background:#000;color:#fff;padding:6px 10px;font-size:12px;text-decoration:none}.product-item-details{margin-top:auto;padding-top:10px}.product-title{font-size:16px;margin-bottom:6px;min-height:44px}.product-title a{text-decoration:none;color:#333}.product-title a:hover{color:#0073e6}.product-price-container{font-size:14px;color:#555}.product-price-container del{margin-right:5px;color:#999}.product-price-container ins{text-decoration:none;font-weight:600;color:#000}.grid-message{width:100%;text-align:center;padding:40px 0}
+.thankyou-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.thankyou-popup {
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 8px;
+  animation: popupFade 0.3s ease;
+}
+
+.thankyou-popup h2 {
+  color: #2e7d32;
+  margin-bottom: 10px;
+}
+
+.order-id {
+  margin: 10px 0;
+  color: #333;
+}
+
+.thankyou-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.thankyou-btn:hover {
+  background: #333;
+}
+
+@keyframes popupFade {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+

@@ -4,7 +4,7 @@ import { CartProvider } from "./context/CartContext";
 
 import Header from "./components/Header";
 import FooterSection from "./components/FooterSection/FooterSection";
-import SubscribePopup from "./components/SubscribePopup/SubscribePopup";
+// import SubscribePopup from "./components/SubscribePopup/SubscribePopup";
 
 import HomePage from "./Pages/HomePage";
 import ContactPage from "./Pages/ContactPage";
@@ -13,6 +13,7 @@ import ShopPage from "./Pages/ShopPage/ShopPage";
 import CategoryProducts from "./Pages/ProductCategoryPage/ProductCategoryPage";
 import ProductDetailsPage from "./Pages/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "./Pages/CartPage/CartPage";
+import CheckoutPage from "./Pages/CheckOut/CheckOut";
 
 export default function App() {
   return (
@@ -34,9 +35,13 @@ export default function App() {
             path="/wp-react-theme/product/:slug"
             element={<ProductDetailsPage />}
           />
+          <Route
+            path="/wp-react-theme/checkout"
+            element={<CheckoutPage />}
+          />
         </Routes>
 
-        <SubscribePopup />
+        {/* <SubscribePopup /> */}
         <FooterSection />
       </BrowserRouter>
     </CartProvider>
