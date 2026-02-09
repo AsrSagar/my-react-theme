@@ -1,21 +1,19 @@
 import React from "react";
 import './TopBar.css';
+import config from "../../../config";
 
 export default function TopBar() {
+    const SITE_URL = config.SITE_URL;
     return (
         <>
         <div id="tophead">
             <div class="container">
                 <div class="top-head-left">
                     <div class="top-head-col multi-language pull-left">
-                        <a class="multi-language-current" href="#"><img alt="language" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/en.png" />English</a>
+                        <a class="multi-language-current" href="#"><img alt="language" src={`${SITE_URL}/wp-content/uploads/2026/01/en.png`} />English</a>
                         <ul class="multi-language-sub">
-                            <li><a href="#"><img alt="language" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/nl.png"/>Nederlands</a></li>
-                            <li><a href="#"><img alt="language" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/la.png"/>Latin</a></li>
-                            <li><a href="#"><img alt="language" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/nl.png"/>Nederlands</a></li>
-                            <li><a href="#"><img alt="language" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/la.png"/>Latin</a></li>
-                            <li><a href="#"><img alt="language" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/nl.png"/>Nederlands</a></li>
-                            <li><a href="#"><img alt="language" src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/la.png"/>Latin</a></li>
+                            <li><a href="#"><img alt="language" src={`${SITE_URL}/wp-content/uploads/2026/01/nl.png`} />Nederlands</a></li>
+                            <li><a href="#"><img alt="language" src={`${SITE_URL}/wp-content/uploads/2026/01/la.png`}/>Latin</a></li>
                         </ul>
                     </div>
                     <div class="top-head-col multi-currency pull-left">

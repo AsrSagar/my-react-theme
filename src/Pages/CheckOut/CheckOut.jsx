@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "../../context/CartContext";
 import ThankYouPopup from "../ThankYouPopup/ThankYouPopup";
+import config from "../../config";
 
 const CheckoutPage = () => {
+    const API_URL = config.API_URL;
 
     const [billing, setBilling] = useState({
         first_name: "",
@@ -67,7 +69,7 @@ const CheckoutPage = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost/wp-react-theme/wp-json/wc/v3/orders",
+                `${API_URL}/wc/v3/orders`,
                 orderData,
                 {
                     auth: {

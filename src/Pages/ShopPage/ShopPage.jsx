@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import config from "../../config";
 
 const ShopPage = () => {
+  const API_URL = config.API_URL;
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -41,7 +43,7 @@ const ShopPage = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost/wp-react-theme/wp-json/wc/store/v1/products?page=${currentPage}&per_page=${perPage}`
+      `${API_URL}/wc/store/v1/products?page=${currentPage}&per_page=${perPage}`
     )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch products");

@@ -48,6 +48,15 @@ function custon_css_and_js_file(){
 		true
 	);
 
+	wp_add_inline_script(
+        'react-app',
+        'window.APP_CONFIG = {
+            SITE_URL: "' . esc_url( get_site_url() ) . '",
+            API_URL: "' . esc_url( get_rest_url() ) . '"
+        };',
+        'before'
+    );
+
 	wp_localize_script(
 		'reactpress-app',
 		'WP_DATA',

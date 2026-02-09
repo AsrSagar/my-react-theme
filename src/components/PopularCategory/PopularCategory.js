@@ -1,6 +1,8 @@
 import React from "react";
+import config from "../../config";
 
 export const PopularCategory = () => {
+  const SITE_URL = config.SITE_URL;
   return (
     <aside className="section no-padding">
       <div className="section-product-categorys">
@@ -17,7 +19,7 @@ export const PopularCategory = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/cat1-1.jpg" alt="category" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/cat2-1.jpg`} alt="category" />
                     </a>
                   </div>
                   <h3 className="category-title">
@@ -32,7 +34,7 @@ export const PopularCategory = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/cat1-1.jpg" alt="category" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/cat1-1.jpg`} alt="category" />
                     </a>
                   </div>
                   <h3 className="category-title">
@@ -47,7 +49,7 @@ export const PopularCategory = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/cat3-1.jpg" alt="category" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/cat3-1.jpg`} alt="category" />
                     </a>
                   </div>
                   <h3 className="category-title">
@@ -62,7 +64,7 @@ export const PopularCategory = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/cat4-1.jpg" alt="category" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/cat4-1.jpg`} alt="category" />
                     </a>
                   </div>
                   <h3 className="category-title">
@@ -77,7 +79,7 @@ export const PopularCategory = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/cat5-1.jpg" alt="category" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/cat5-1.jpg`} alt="category" />
                     </a>
                   </div>
                   <h3 className="category-title">
@@ -92,7 +94,7 @@ export const PopularCategory = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/cat6-1.jpg" alt="category" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/cat6-1.jpg`} alt="category" />
                     </a>
                   </div>
                   <h3 className="category-title">

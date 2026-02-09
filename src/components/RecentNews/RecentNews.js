@@ -1,6 +1,8 @@
 import React from 'react';
+import config from '../../config';
 
 const RecentNews = () => {
+  const SITE_URL = config.SITE_URL
   return (
     <aside className="section no-padding-top">
       <div className="section-latest-posts">
@@ -16,7 +18,7 @@ const RecentNews = () => {
                   <div className="latest-posts-thumb thumb-overlay">
                     <a href="#">
                       <img
-                        src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/latest-post-1.jpg"
+                        src={`${SITE_URL}/wp-content/uploads/2026/01/latest-post-1.jpg`}
                         alt="Recent Post"
                       />
                     </a>
@@ -65,7 +67,7 @@ const RecentNews = () => {
                   <div className="latest-posts-thumb thumb-overlay">
                     <a href="#">
                       <img
-                        src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/latest-post-2.jpg"
+                        src={`${SITE_URL}/wp-content/uploads/2026/01/latest-post-2.jpg`}
                         alt="Recent Post"
                       />
                     </a>
@@ -114,7 +116,7 @@ const RecentNews = () => {
                   <div className="latest-posts-thumb thumb-overlay">
                     <a href="#">
                       <img
-                        src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/latest-post-3.jpg"
+                        src={`${SITE_URL}/wp-content/uploads/2026/01/latest-post-3.jpg`}
                         alt="Recent Post"
                       />
                     </a>

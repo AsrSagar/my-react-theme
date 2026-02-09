@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import "./ProductCategoryPage.scss";
+import config from "../../config";
 
 const CategoryProducts = () => {
+  const API_URL = config.API_URL;
   const location = useLocation();
   const navigate = useNavigate();
   const { addToCart, isInCart } = useCart();
@@ -47,7 +49,7 @@ const CategoryProducts = () => {
     setLoading(true);
 
     fetch(
-      `http://localhost/wp-react-theme/wp-json/wc/store/v1/products?category=${slug}`
+      `${API_URL}/wc/store/v1/products?category=${slug}`
     )
       .then((res) => res.json())
       .then((data) => {

@@ -1,6 +1,8 @@
 import React from 'react';
+import config from '../../config';
 
 const AssociateLogos = () => {
+  const SITE_URL = config.SITE_URL;
   return (
     <aside className="section lite-background">
       <div className="section-associate-logo">
@@ -23,32 +25,32 @@ const AssociateLogos = () => {
             >
               <div className="associate-logo-item">
                 <a href="#">
-                  <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/client-new-1.png" alt="Associate Logo" />
+                  <img src={`${SITE_URL}/wp-content/uploads/2026/01/client-new-1.png`} alt="Associate Logo" />
                 </a>
               </div>
               <div className="associate-logo-item">
                 <a href="#">
-                  <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/client-new-2.png" alt="Associate Logo" />
+                  <img src={`${SITE_URL}/wp-content/uploads/2026/01/client-new-2.png`} alt="Associate Logo" />
                 </a>
               </div>
               <div className="associate-logo-item">
                 <a href="#">
-                  <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/client-new-3.png" alt="Associate Logo" />
+                  <img src={`${SITE_URL}/wp-content/uploads/2026/01/client-new-3.png`} alt="Associate Logo" />
                 </a>
               </div>
               <div className="associate-logo-item">
                 <a href="#">
-                  <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/client-new-4.png" alt="Associate Logo" />
+                  <img src={`${SITE_URL}/wp-content/uploads/2026/01/client-new-4.png`} alt="Associate Logo" />
                 </a>
               </div>
               <div className="associate-logo-item">
                 <a href="#">
-                  <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/client-new-5.png" alt="Associate Logo" />
+                  <img src={`${SITE_URL}/wp-content/uploads/2026/01/client-new-5.png`} alt="Associate Logo" />
                 </a>
               </div>
               <div className="associate-logo-item">
                 <a href="#">
-                  <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/client-new-6.png" alt="Associate Logo" />
+                  <img src={`${SITE_URL}/wp-content/uploads/2026/01/client-new-6.png`} alt="Associate Logo" />
                 </a>
               </div>
             </div>

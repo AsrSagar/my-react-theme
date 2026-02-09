@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom";
 import { wcApi } from "../../api/woocommerce";
 import BuyNowPopupCheckout from "../../components/BuyNowPopupCheckout/BuyNowPopupCheckout";
 import PlaceOrderButton from "../../components/BuyNowPopupCheckout/BuyNowPopupCheckout";
+import config from "../../config";
 
 const images = [1, 2, 3].map(
-    i => `http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-${i}.jpg`
+    i => `${config.SITE_URL}/wp-content/uploads/2026/01/product-${i}.jpg`
 );
 
 const ProductDetailsPage = () => {
