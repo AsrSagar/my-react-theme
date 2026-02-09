@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import config from "../../config";
 
 const NewProducts = () => {
+  const API_URL = config.API_URL;
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate(); 
@@ -26,7 +28,7 @@ const NewProducts = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost/wp-react-theme/wp-json/wc/store/v1/products?per_page=4")
+    fetch(`${API_URL}/wc/store/v1/products?per_page=4`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -57,7 +59,6 @@ const NewProducts = () => {
                 e.preventDefault(); // prevent default link behavior
                 navigate(`/wp-react-theme/product/${slug}`); // client-side navigation
               };
-
               return (
                 <div className="product-item col-grid-3">
                   <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">

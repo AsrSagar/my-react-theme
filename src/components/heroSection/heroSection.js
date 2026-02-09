@@ -1,6 +1,10 @@
 import React from "react";
+import config from "../../config";
 
 export default function HeroSection() {
+    
+    const SITE_URL = config.SITE_URL
+
     return (
         <>
         <aside class="section no-padding">
@@ -20,8 +24,8 @@ export default function HeroSection() {
                                 </div> 
                             </div> 
                         </div> 
-                        <a href= "#"  >
-                            <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/slide-1.jpg" alt="Slider" />
+                        <a href= "#">
+                            <img src={`${SITE_URL}/wp-content/uploads/2026/01/slide-1.jpg`} alt="Slider" />
                         </a>
                     </article>
                     <article>
@@ -36,7 +40,7 @@ export default function HeroSection() {
                             </div>
                         </div>
                         <a href="#">
-                            <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/slide-2.jpg" alt="Slider" />
+                            <img src={`${SITE_URL}/wp-content/uploads/2026/01/slide-2.jpg`} alt="Slider" />
                         </a>
                     </article>
                     <article>
@@ -51,7 +55,7 @@ export default function HeroSection() {
                             </div>
                         </div>
                         <a href="#">
-                            <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/slide-3.jpg" alt="Slider" />
+                            <img src={`${SITE_URL}/wp-content/uploads/2026/01/slide-3.jpg`} alt="Slider" />
                         </a>
                     </article>
                     <article>
@@ -67,7 +71,7 @@ export default function HeroSection() {
                             </div>
                         </div>
                         <a href="#">
-                            <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/slide-4.jpg" alt="Slider" />
+                            <img src={`${SITE_URL}/wp-content/uploads/2026/01/slide-4.jpg`} alt="Slider" />
                         </a>
                     </article>
                     <article>
@@ -82,7 +86,7 @@ export default function HeroSection() {
                             </div>
                         </div>
                         <a href= "#">
-                            <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/slide-5.jpg" alt="Slider" />
+                            <img src={`${SITE_URL}/wp-content/uploads/2026/01/slide-5.jpg`} alt="Slider" />
                         </a>
                     </article>
                 </div>

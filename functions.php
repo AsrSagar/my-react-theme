@@ -21,6 +21,8 @@ include(THEME_PATH.'/includes/api/product_details_api.php');
 *	Hooks 
 */
 add_action('wp_enqueue_scripts', 'custon_css_and_js_file');
+add_filter('woocommerce_rest_check_permissions', '__return_true');
+add_filter('woocommerce_checkout_redirect_empty_cart', '__return_false');
 // add_action( 'init', 'innotech_custom_post_type' );
 
 

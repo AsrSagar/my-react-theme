@@ -1,5 +1,7 @@
 import React from "react";
+import config from "../../config";
 const BlogGridPage = () => {
+  const SITE_URL = config.SITE_URL;
   return (
     <>
       {/* Header */}
@@ -59,7 +61,7 @@ const BlogGridPage = () => {
                         <div className="entry-thumb aligncenter thumb-overlay">
                           <a href="#">
                             <img
-                              src={`http://localhost/wp-react-theme/wp-content/uploads/2026/01/${post.img}`}
+                              src={`${SITE_URL}/wp-content/uploads/2026/01/${post.img}`}
                               alt="Blog"
                             />
                           </a>

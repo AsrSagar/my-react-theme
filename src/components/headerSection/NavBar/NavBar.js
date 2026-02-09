@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import HeaderMiniCart from "./HeaderMiniCart";
+import config from "../../../config";
 
 const NavBar = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -9,7 +10,7 @@ const NavBar = () => {
   useEffect(() => {
     // Fetch menu from your custom WP REST API
     axios
-      .get("http://localhost/wp-react-theme/wp-json/reactpress/v1/menu/main-menu") // replace 'main' with your menu location
+      .get(`${config.API_URL}/reactpress/v1/menu/main-menu`)
       .then((res) => setMenuItems(res.data))
       .catch((err) => console.error(err));
   }, []);

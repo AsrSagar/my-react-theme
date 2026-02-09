@@ -1,6 +1,9 @@
 import React from 'react';
+import config from '../../config';
 
 const ProductSidebar = () => {
+  const SITE_URL = config.SITE_URL
+
   return (
     <aside className="section">
       <div className="container">
@@ -15,7 +18,7 @@ const ProductSidebar = () => {
               <div className="products-list">
                 <a href="#" className="product-thumb" title="Product Name">
                   <img
-                    src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-1.jpg"
+                    src={`${SITE_URL}/wp-content/uploads/2026/01/product-1.jpg`}
                     alt="product"
                     className="product-image"
                   />
@@ -57,7 +60,7 @@ const ProductSidebar = () => {
               <div className="products-list">
                 <a href="#" className="product-thumb" title="Product Name">
                   <img
-                    src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-2.jpg"
+                    src={`${SITE_URL}/wp-content/uploads/2026/01/product-2.jpg`}
                     alt="product"
                     className="product-image"
                   />
@@ -108,7 +111,7 @@ const ProductSidebar = () => {
               <div className="products-list">
                 <a href="#" className="product-thumb" title="Product Name">
                   <img
-                    src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-3.jpg"
+                    src={`${SITE_URL}/wp-content/uploads/2026/01/product-3.jpg`}
                     alt="product"
                     className="product-image"
                   />
@@ -150,7 +153,7 @@ const ProductSidebar = () => {
               <div className="products-list">
                 <a href="#" className="product-thumb" title="Product Name">
                   <img
-                    src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-4.jpg"
+                    src={`${SITE_URL}/wp-content/uploads/2026/01/product-4.jpg`}
                     alt="product"
                     className="product-image"
                   />
@@ -201,7 +204,7 @@ const ProductSidebar = () => {
               <div className="products-list">
                 <a href="#" className="product-thumb" title="Product Name">
                   <img
-                    src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-5.jpg"
+                    src={`${SITE_URL}/wp-content/uploads/2026/01/product-5.jpg`}
                     alt="product"
                     className="product-image"
                   />
@@ -245,7 +248,7 @@ const ProductSidebar = () => {
               <div className="products-list">
                 <a href="#" className="product-thumb" title="Product Name">
                   <img
-                    src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-6.jpg"
+                    src={`${SITE_URL}/wp-content/uploads/2026/01/product-6.jpg`}
                     alt="product"
                     className="product-image"
                   />

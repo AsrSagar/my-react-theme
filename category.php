@@ -6,8 +6,8 @@
             the_post();
             the_title( '<h1 class="entry-title">', '</h1>' );
             the_content();
-        endwhile; // End of the loop.
+        endwhile; 
         ?>
-    </main><!-- #main -->
-</div><!-- #primary -->
+    </main>
+</div>
 <?php get_footer(); ?>

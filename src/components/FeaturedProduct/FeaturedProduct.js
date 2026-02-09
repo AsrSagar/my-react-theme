@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import config from "../../config";
 
 const FeaturedProducts = () => {
-
+  const API_URL = config.API_URL;
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate(); 
@@ -29,7 +30,7 @@ const FeaturedProducts = () => {
   
   useEffect(() => {
     fetch(
-      `http://localhost/wp-react-theme/wp-json/wc/store/v1/products?featured=true&per_page=${perPage}`
+      `${API_URL}/wc/store/v1/products?featured=true&per_page=${perPage}`
     )
       .then((res) => res.json())
       .then((data) => {

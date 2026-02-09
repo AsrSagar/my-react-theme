@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 
 const CartPage = () => {
@@ -190,12 +191,12 @@ const CartPage = () => {
                         </table>
 
                         <div className="wc-proceed-to-checkout">
-                            <a
-                            href="#"
-                            className="checkout-button custom-button"
-                            >
-                            Proceed to checkout
-                            </a>
+                            <Link
+                                className="checkout-button custom-button"
+                                to="/wp-react-theme/checkout/"
+                                >
+                                Proceed to checkout
+                            </Link>
                         </div>
 
                         </div>

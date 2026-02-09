@@ -1,6 +1,8 @@
 import React from 'react';
+import config from '../../config';
 
 const PopularProducts = () => {
+  const SITE_URL = config.SITE_URL;
   return (
     <aside className="section">
       <div className="section-products">
@@ -16,21 +18,21 @@ const PopularProducts = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-10.jpg" alt="product" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/product-1.jpg`} alt="product" />
                     </a>
                     <div className="pruduct-buttons">
-                      <a href="#" className="product-button tooltip">
+                      <button href="#" className="product-button tooltip">
                         <i className="fas fa-cart-plus"></i>
                         <span className="tooltiptext tooltip-right">Add To Cart</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
+                      </button>
+                      <button href="#" className="product-button tooltip">
                         <i className="far fa-heart"></i>
                         <span className="tooltiptext tooltip-right">Wishlist</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
+                      </button>
+                      <button href="#" className="product-button tooltip">
                         <i className="fa fa-retweet"></i>
                         <span className="tooltiptext tooltip-right">Compair</span>
-                      </a>
+                      </button>
                     </div>
                     <div className="quick-view">
                       <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">
@@ -63,21 +65,21 @@ const PopularProducts = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-11.jpg" alt="product" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/product-11.jpg`} alt="product" />
                     </a>
                     <div className="pruduct-buttons">
-                      <a href="#" className="product-button tooltip">
+                      <button href="#" className="product-button tooltip">
                         <i className="fas fa-cart-plus"></i>
                         <span className="tooltiptext tooltip-right">Add To Cart</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
+                      </button>
+                      <button href="#" className="product-button tooltip">
                         <i className="far fa-heart"></i>
                         <span className="tooltiptext tooltip-right">Wishlist</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
+                      </button>
+                      <button href="#" className="product-button tooltip">
                         <i className="fa fa-retweet"></i>
                         <span className="tooltiptext tooltip-right">Compair</span>
-                      </a>
+                      </button>
                     </div>
                     <div className="quick-view">
                       <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">
@@ -108,21 +110,21 @@ const PopularProducts = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-12.jpg" alt="product" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/product-12.jpg`} alt="product" />
                     </a>
                     <div className="pruduct-buttons">
-                      <a href="#" className="product-button tooltip">
+                      <button href="#" className="product-button tooltip">
                         <i className="fas fa-cart-plus"></i>
                         <span className="tooltiptext tooltip-right">Add To Cart</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
+                      </button>
+                      <button href="#" className="product-button tooltip">
                         <i className="far fa-heart"></i>
                         <span className="tooltiptext tooltip-right">Wishlist</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
+                      </button>
+                      <button href="#" className="product-button tooltip">
                         <i className="fa fa-retweet"></i>
                         <span className="tooltiptext tooltip-right">Compair</span>
-                      </a>
+                      </button>
                     </div>
                     <div className="quick-view">
                       <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">
@@ -154,21 +156,21 @@ const PopularProducts = () => {
                 <div className="product-item-wrapper zoom-effect-hover-container box-shadow-block">
                   <div className="product-thumb zoom-effect">
                     <a className="thumbnail" href="#">
-                      <img src="http://localhost/wp-react-theme/wp-content/uploads/2026/01/product-14.jpg" alt="product" />
+                      <img src={`${SITE_URL}/wp-content/uploads/2026/01/product-13.jpg`} alt="product" />
                     </a>
                     <div className="pruduct-buttons">
-                      <a href="#" className="product-button tooltip">
+                      <button href="#" className="product-button tooltip">
                         <i className="fas fa-cart-plus"></i>
                         <span className="tooltiptext tooltip-right">Add To Cart</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
+                      </button>
+                      <button href="#" className="product-button tooltip">
                         <i className="far fa-heart"></i>
                         <span className="tooltiptext tooltip-right">Wishlist</span>
-                      </a>
-                      <a href="#" className="product-button tooltip">
+                      </button>
+                      <button href="#" className="product-button tooltip">
                         <i className="fa fa-retweet"></i>
                         <span className="tooltiptext tooltip-right">Compair</span>
-                      </a>
+                      </button>
                     </div>
                     <div className="quick-view">
                       <a href="#quick-view-content-wrappr" className="custom-button button-small quick-view-link">

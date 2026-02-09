@@ -1,0 +1,92 @@
+import React from "react";
+import "./thankyou.css";
+
+const ThankYouPopup = ({ show, orderId, onClose }) => {
+
+    if (!show) return null;
+
+    const handleContinueShopping = () => {
+        onClose();               
+        window.location.href = "/wp-react-theme/shop/";
+    };
+
+    return (
+        <div className="thankyou-overlay">
+            <div className="thankyou-popup">
+                <h2>🎉 Thank You!</h2>
+                <p>Your order has been placed successfully.</p>
+                {orderId && (
+                <p className="order-id">
+                    <strong>Order ID:</strong> #{orderId}
+                </p>
+                )}
+
+                <button className="thankyou-btn" onClick={handleContinueShopping}>
+                Continue Shopping
+                </button>
+            </div>
+            <style>{`
+            .thankyou-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.6);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+            }
+
+            .thankyou-popup {
+                background: #fff;
+                padding: 30px;
+                width: 90%;
+                max-width: 400px;
+                text-align: center;
+                border-radius: 8px;
+                animation: popupFade 0.3s ease;
+            }
+
+            .thankyou-popup h2 {
+                color: #2e7d32;
+                margin-bottom: 10px;
+            }
+
+            .order-id {
+                margin: 10px 0;
+                color: #333;
+            }
+
+            .thankyou-btn {
+                margin-top: 15px;
+                padding: 10px 20px;
+                border: none;
+                background: #000;
+                color: #fff;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+
+            .thankyou-btn:hover {
+                background: #333;
+            }
+
+            @keyframes popupFade {
+                from {
+                    transform: scale(0.9);
+                    opacity: 0;
+                }
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+            `}</style>
+        </div>
+                
+    );
+};
+
+export default ThankYouPopup;
